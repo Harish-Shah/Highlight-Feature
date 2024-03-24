@@ -4,7 +4,8 @@ import Highlighter from 'react-highlight-words';
 
 function FloatingWindow() {
     const [highlightedText, setHighlightedText] = useState('');
-    const [highlightRange, setHighlightRange] = useState({ startIndex: 0, endIndex: 0 });
+    // const [highlightRange, setHighlightRange] = useState({ startIndex: 0, endIndex: 0 });
+    const [highlightedTexts, setHighlightedTexts] = useState([]);
     const [isToolbarVisible, setIsToolbarVisible] = useState(false);
 
     const handleClearHighlight = () => {
@@ -22,13 +23,14 @@ function FloatingWindow() {
         highlightedElement.style.backgroundColor = 'yellow';
         const selection = window.getSelection();
         const range = selection.getRangeAt(0);
-        setHighlightRange({
+        const newHighlight = {
             startIndex: range.startOffset,
             endIndex: range.endOffset,
-        });
+        };
+        setHighlightedTexts([...highlightedTexts, newHighlight]);
         range.surroundContents(highlightedElement);
         console.log("highlightedText ===>", highlightedText)
-        console.log("highlightRange ===>", highlightRange)
+        console.log("highlightedTexts ===>", highlightedTexts)
     };
 
     const handleAddNoteOption = () => {
